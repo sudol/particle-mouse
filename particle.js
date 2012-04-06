@@ -1,12 +1,16 @@
 
     //The number of particles on the screen at once
-    var PARTICLE_COUNT = 150;
+    var PARTICLE_COUNT = 100;
+    var PARTICLE_SIZE = 8;
+    
     var FOREGROUND_COLOR = "black";    
     
+    //Set this to "destination-out" to get the flashlight effect
     var COMPOSITION_MODE = "destination-out";
+    
     //The colors of the particles
     var colors = [
-    	    "#00495E",
+            "#00495E",
 		    "#00BFF7",
 		    "#2F2F2F"
 		];
@@ -45,11 +49,47 @@
         };
     }
     
+    /*
+     * Generate and return a circle at the current mouse position
+     */
+    function getCircle() {
+        //Get a random radius
+        var radius = Math.floor((Math.random()*PARTICLE_SIZE)+2);
+        
+        //Get a random direction
+        var direction = Math.floor((Math.random()*360)+1);
+        var radians = direction * (Math.PI/180);
+        
+        //Get a random color from an array
+        var colorOption = Math.floor(Math.random() * colors.length);
+
+        //Get the appropriate x and y increments
+        var xIncrement = Math.floor(Math.sin(radians) * 10)/5;
+        var yIncrement = Math.floor(Math.cos(radians) * 10)/5;
+            
+        var myCircle = {
+            centerX: mousePos.x,
+    		centerY: mousePos.y,
+			radius: radius,
+            radiusIncrement: Math.floor((Math.random()*20) + 10)/100,
+            xIncrement: xIncrement,
+            yIncrement: yIncrement,
+			startingAngle: 0 * Math.PI,
+	        endingAngle: 2 * Math.PI,
+	        counterclockwise: false,
+	        fillStyle: colors[colorOption],
+            alpha: 1,            
+            alphaIncrement: Math.floor((Math.random()*20) + 10)/1000
+		};
+        
+        return myCircle;
+    }
+    
     function drawCircle() {
         
 	    //Clear the canvas
         canvas.width = canvas.width;
-        
+        context.globalAlpha = 0.9;
         context.fillStyle = FOREGROUND_COLOR;
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.globalCompositeOperation = COMPOSITION_MODE;
@@ -106,61 +146,4 @@
 
 	}
     
-    function getCircle() {
-        //Get a random radius
-        var radius = Math.floor((Math.random()*8)+2);
-        
-        //Get a random direction
-        var direction = Math.floor((Math.random()*360)+1);
-        var radians = direction * (Math.PI/180);
-        
-        //Get a random color from an array
-        var colorOption = Math.floor(Math.random() * colors.length);
-
-        //Get the appropriate x and y increments
-        var xIncrement = Math.floor(Math.sin(radians) * 10)/5;
-        var yIncrement = Math.floor(Math.cos(radians) * 10)/5;
-            
-        var myCircle = {
-            centerX: mousePos.x,
-			centerY: mousePos.y,
-			radius: radius,
-            radiusIncrement: Math.floor((Math.random()*20) + 10)/100,
-            xIncrement: xIncrement,
-            yIncrement: yIncrement,
-			startingAngle: 0 * Math.PI,
-	        endingAngle: 2 * Math.PI,
-	        counterclockwise: false,
-	        fillStyle: colors[colorOption],
-            alpha: 1,            
-            alphaIncrement: Math.floor((Math.random()*20) + 10)/1000
-		};
-        
-        return myCircle;
-    }
     
-    window.onload = function() {
-        canvas = document.getElementById('myCanvas');
-        //var title = document.getElementById('title');
-        context = canvas.getContext("2d");
-        
-        context.fillStyle = FOREGROUND_COLOR;
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        
-        canvas.addEventListener('mousemove', function(evt){
-            mousePos = getMousePos(canvas, evt);
-            
-        }, false);
-        
-        canvas.addEventListener('mouseover', function(evt){
-            mousePos = getMousePos(canvas, evt);
-            isActive = true;
-            
-            clearInterval(t);
-            t = setInterval(function (){drawCircle();}, 1000/30);
-        }, false);
-        
-        canvas.addEventListener('mouseout', function(){
-            isActive = false;
-        }, false);
-    };

@@ -4,35 +4,123 @@
         <script src="particle.js"></script>
         
         <style>
+            body {
+                font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
+                font-weight: 300;   
+            }
             canvas {
                 border: 1px solid black;
-            }
-            #myCanvas {
-                position:absolute;
+                position: absolute;
                 left:0;
                 top:0;
             }
-            #title{
-                font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
-                font-weight: 300;   
+            #container {
+                height: 900px; 
+                width: 1200px;
+                position: relative;
+                overflow: hidden;
+            }
+            .title{   
                 font-size: 64px;
+                color: white;
                 margin-left: auto;
                 margin-right: auto;
                 width: 200px;
-                border: 1px solid black;
+                text-align: center;
+                position: absolute;
+                top: 200px;
+                left:500px;
+            }
+            .subtitle{   
+                font-size: 32px;
             }
         </style>
         
     </head>
     
-    <div class="header">
-        Particle Mouse
+    <div id="container">
+        <div style="font-size:30px;">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+        <canvas id="myCanvas" height="900" width="1200"></canvas>
+        <div class="title">
+            Particle Mouse <span class="subtitle">by Paul Sudol</span>
+        </div>
     </div>
-    
-    <div style="width:580px;font-size:30px;">
-        <div id="title">Particle Mouse</div>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </div>
-    <canvas id="myCanvas" height="600" width="600"></canvas>
-    
+    <script>
+        $(document).ready(function() {
+        canvas = document.getElementById('myCanvas');
+        context = canvas.getContext("2d");
+        context.globalAlpha = 0.9;
+        context.fillStyle = FOREGROUND_COLOR;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        
+        PARTICLE_SIZE = 30;
+        
+        $("#container").mousemove(function(evt){
+            mousePos = getMousePos(canvas, evt);
+        });
+        
+        $("#container").mouseenter(function(evt){
+            mousePos = getMousePos(canvas, evt);
+            isActive = true;
+            
+            clearInterval(t);
+            t = setInterval(function (){drawCircle();}, 1000/30);
+        });
+        
+        $("#container").mouseleave(function() {
+            isActive = false;
+        });
+
+    });    
+    </script>
 </htmL>
+
