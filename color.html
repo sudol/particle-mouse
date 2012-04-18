@@ -46,31 +46,44 @@
     </div>
     <script>
         $(document).ready(function() {
-        canvas = document.getElementById('myCanvas');
-        context = canvas.getContext("2d");
-        FOREGROUND_COLOR = "rgba(255,0,0,0.0)";    
-        COMPOSITION_MODE = null;
-        
-        context.fillStyle = FOREGROUND_COLOR;
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        
-        $("#container").mousemove(function(evt){
-            mousePos = getMousePos(canvas, evt);
-        });
-        
-        $("#container").mouseenter(function(evt){
-            mousePos = getMousePos(canvas, evt);
-            isActive = true;
+            canvas = document.getElementById('myCanvas');
+            context = canvas.getContext("2d");
             
-            clearInterval(t);
-            t = setInterval(function (){drawCircle();}, 1000/30);
-        });
-        
-        $("#container").mouseleave(function() {
-            isActive = false;
-        });
-
-    });    
+            COMPOSITION_MODE = null;
+            
+            colors = [
+                    "rgba(0, 73, 94, 1)",
+                    "rgba(0, 191, 247, 1)",
+        		    "rgba(47, 47, 47, 1)"
+        		];
+            alphaColors = [
+                    "rgba(0, 73, 94, 0)",
+                    "rgba(0, 191, 247, 0)",
+            	    "rgba(47, 47, 47, 0)"
+        		];
+                
+            PARTICLE_SIZE = 7;
+            
+            context.fillStyle = FOREGROUND_COLOR;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            $("#container").mousemove(function(evt){
+                mousePos = getMousePos(canvas, evt);
+            });
+            
+            $("#container").mouseenter(function(evt){
+                mousePos = getMousePos(canvas, evt);
+                isActive = true;
+                
+                clearInterval(t);
+                t = setInterval(function (){drawCircle();}, 1000/30);
+            });
+            
+            $("#container").mouseleave(function() {
+                isActive = false;
+            });
+    
+        });    
     </script>
 </htmL>
 

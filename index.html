@@ -15,8 +15,8 @@
                 top:0;
             }
             #container {
-                height: 900px; 
-                width: 1200px;
+                height: 902px; 
+                width: 1202px;
                 position: relative;
                 overflow: hidden;
             }
@@ -96,31 +96,40 @@
     </div>
     <script>
         $(document).ready(function() {
-        canvas = document.getElementById('myCanvas');
-        context = canvas.getContext("2d");
-        context.globalAlpha = 0.9;
-        context.fillStyle = FOREGROUND_COLOR;
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        
-        PARTICLE_SIZE = 30;
-        
-        $("#container").mousemove(function(evt){
-            mousePos = getMousePos(canvas, evt);
-        });
-        
-        $("#container").mouseenter(function(evt){
-            mousePos = getMousePos(canvas, evt);
-            isActive = true;
+            canvas = document.getElementById('myCanvas');
+            context = canvas.getContext("2d");
             
-            clearInterval(t);
-            t = setInterval(function (){drawCircle();}, 1000/30);
-        });
-        
-        $("#container").mouseleave(function() {
-            isActive = false;
-        });
-
-    });    
+            FOREGROUND_COLOR = "rgba(0,0,0,0.9)";  
+            PARTICLE_SIZE = 10;
+            
+            colors = [
+                "rgba(255, 255, 255, 1)"
+    		];
+            
+            alphaColors = [
+                "rgba(255, 255, 255, 0)"
+    		];
+            
+            context.fillStyle = FOREGROUND_COLOR;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            $("#container").mousemove(function(evt){
+                mousePos = getMousePos(canvas, evt);
+            });
+            
+            $("#container").mouseenter(function(evt){
+                mousePos = getMousePos(canvas, evt);
+                isActive = true;
+                
+                clearInterval(t);
+                t = setInterval(function (){drawCircle();}, 1000/30);
+            });
+            
+            $("#container").mouseleave(function() {
+                isActive = false;
+            });
+    
+        });    
     </script>
 </htmL>
 

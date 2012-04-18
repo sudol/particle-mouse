@@ -3,17 +3,16 @@
     var PARTICLE_COUNT = 100;
     var PARTICLE_SIZE = 8;
     
-    var FOREGROUND_COLOR = "black";    
+    var FOREGROUND_COLOR = "white";    
     
     //Set this to "destination-out" to get the flashlight effect
     var COMPOSITION_MODE = "destination-out";
     
     //The colors of the particles
-    var colors = [
-            "#00495E",
-		    "#00BFF7",
-		    "#2F2F2F"
-		];
+    var colors = [];
+    
+    //The transparent version on the particle colors
+    var alphaColors = [];
         
     //This array will hold all the particles to be rendered
     var circles = [];
@@ -69,7 +68,7 @@
             
         var myCircle = {
             centerX: mousePos.x,
-    		centerY: mousePos.y,
+            centerY: mousePos.y,
 			radius: radius,
             radiusIncrement: Math.floor((Math.random()*20) + 10)/100,
             xIncrement: xIncrement,
@@ -78,6 +77,7 @@
 	        endingAngle: 2 * Math.PI,
 	        counterclockwise: false,
 	        fillStyle: colors[colorOption],
+            alphaColor: alphaColors[colorOption],
             alpha: 1,            
             alphaIncrement: Math.floor((Math.random()*20) + 10)/1000
 		};
@@ -89,7 +89,6 @@
         
 	    //Clear the canvas
         canvas.width = canvas.width;
-        context.globalAlpha = 0.9;
         context.fillStyle = FOREGROUND_COLOR;
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.globalCompositeOperation = COMPOSITION_MODE;
@@ -103,16 +102,32 @@
             context.arc(
                 circles[currentCircle].centerX,
                 circles[currentCircle].centerY,
-                circles[currentCircle].radius,
+                circles[currentCircle].radius*3,
                 circles[currentCircle].startingAngle,
                 circles[currentCircle].endingAngle,
                 circles[currentCircle].counterclockwise
             );
             
             context.lineWidth = circles[currentCircle].lineWidth;
-            context.strokeStyle = circles[currentCircle].strokeStyle;
+            
             context.fillStyle = circles[currentCircle].fillStyle;
 
+            var radialgradient = context.createRadialGradient(
+                circles[currentCircle].centerX,
+                circles[currentCircle].centerY,
+                0,
+                circles[currentCircle].centerX,
+                circles[currentCircle].centerY,
+                circles[currentCircle].radius*3
+            );  
+            radialgradient.addColorStop(0, circles[currentCircle].fillStyle);
+            radialgradient.addColorStop(0.2, circles[currentCircle].fillStyle);
+            radialgradient.addColorStop(1, circles[currentCircle].alphaColor); 
+            
+            
+            
+            context.fillStyle = radialgradient;
+            
             context.fill();
             
             //Increment the x and y position
