@@ -172,9 +172,10 @@
 
         canvas.addEventListener('mousemove', function(evt){
             mousePos = getMousePos(canvas, evt);
-            // if (t == undefined) {
-            //   t = setTimeout(function (){drawCircle();}, 1000/60);
-            // }
+            if (t == undefined) {
+              isActive = true;
+              t = setTimeout(function (){drawCircle();}, 1000/60);
+            }
         }, false);
 
         canvas.addEventListener('mouseover', function(evt){
